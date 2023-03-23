@@ -1,12 +1,17 @@
-import logo from "./logo.svg";
 import "./App.css";
-import ListaChat from "./pages/listaChat";
 import MainChat from "./pages/mainChat";
+import ConfigurationContextProvider from "./context/configurationContext";
+import ColorModeContextProvider from "./context/colorModeContext";
+
 function App() {
   return (
-    <div className="App">
-      <MainChat />
-    </div>
+    <ConfigurationContextProvider>
+      <ColorModeContextProvider>
+        <div className="App">
+          <MainChat />
+        </div>
+      </ColorModeContextProvider>
+    </ConfigurationContextProvider>
   );
 }
 

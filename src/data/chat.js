@@ -14,6 +14,8 @@ const GetConfig = () => {
 };
 
 const ChangeConfig = (body) => {
+  console.log("🚀 ~ file: chat.js:17 ~ ChangeConfig ~ body:", body);
+
   return axios.post(`${uri}/config`, body, configuration);
 };
 

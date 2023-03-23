@@ -1,0 +1,41 @@
+[ 
+    {
+      "id":1,
+      "owner":true,
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
+      "date": "2021-08-02T14:54:46Z"
+    },
+    
+    {
+      "id":2,
+      "owner":false,
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  ",
+      "date": "2021-08-01T14:59:46Z"
+    },
+    {
+      "id":3,
+      "owner":true,
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
+      "date": "2021-08-02T14:54:46Z"
+    },
+    
+    {
+      "id":4,
+      "owner":false,
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  ",
+      "date": "2021-08-01T14:59:46Z"
+    },
+    {
+      "id":5,
+      "owner":true,
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
+      "date": "2021-08-02T14:54:46Z"
+    },
+    
+    {
+      "id":6,
+      "owner":false,
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  ",
+      "date": "2021-08-01T14:59:46Z"
+    }
+  ]

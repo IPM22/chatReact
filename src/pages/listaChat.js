@@ -1,91 +1,76 @@
-import React, { useEffect, useState } from "react";
-import { GetChats, GetConfig } from "../api/chat";
-import ChatList from "../api/data.json";
-import { styled } from "@mui/material/styles";
+import React, { useContext, useState } from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
 import { Typography } from "@mui/material";
 import Header from "../components/header";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import { ConfigurationContext } from "../context/configurationContext";
 
-const Conversation = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-
-  color: theme.palette.text.secondary,
-}));
-
-const ListaChat = () => {
-  const [chats, setChats] = useState([]);
-  const [config, setConfig] = useState(null);
-
-  useEffect(() => {
-    GetListaChat();
-    GetConfigUser();
-  }, []);
-
-  const GetListaChat = () => {
-    GetChats()
-      .then((response) => setChats(response.data))
-      .catch((err) => console.log(err));
-  };
-
-  const GetConfigUser = () => {
-    GetConfig()
-      .then((response) => setConfig(response.data))
-      .catch((err) => console.log(err));
-  };
-
+const ListaChat = ({ setChatIdSelected, chats, setOpenProfile }) => {
+  const [searchText, setSearchText] = useState("");
+  const { config } = useContext(ConfigurationContext);
   return (
     <div>
-      <Header data={config} />
-      <Box sx={{ flexGrow: 1, padding: 1 }}>
+      <Header
+        name={config.username}
+        photo={config.photo}
+        search={true}
+        setSearchText={setSearchText}
+        setOpenProfile={setOpenProfile}
+        openProfile
+      />
+      <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
-          spacing={2}
-          sx={{ overflowY: "scroll", maxHeight: "1250px" }}
+          spacing={1}
+          sx={{
+            overflowY: "scroll",
+            maxHeight: "90vh",
+            padding: 1,
+          }}
         >
-          {chats.map((c) => (
-            <Grid key={c.chatId} item md={12} xs={12}>
-              <Conversation>
-                <Avatar sx={{ marginRight: 2 }}>
-                  <PersonIcon />
-                </Avatar>
-                <Typography
-                  variant="body"
-                  textOverflow={"ellipsis"}
-                  width={900}
-                  whiteSpace={"nowrap"}
-                  overflow={"hidden"}
-                >
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
-                </Typography>
-                <Box textAlign={"end"} width={"40vh"}>
-                  <Typography variant="body2">
-                    {c.lastMessage.substring(0, 10)}
-                  </Typography>
-                  <Typography variant="body2">
-                    {c.lastMessage.substring(11, 19)}
-                  </Typography>
+          <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+            {chats
+              .filter((chat) => chat.destinaraty.includes(searchText))
+              .map((c) => (
+                <Box key={c.chatId}>
+                  <ListItem alignItems="flex-start">
+                    <ListItemButton
+                      onClick={() => {
+                        setChatIdSelected(c.chatId);
+                      }}
+                    >
+                      <ListItemAvatar>
+                        <Avatar sx={{ marginRight: 2 }}>
+                          <PersonIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={c.destinaraty}
+                        secondary="Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry."
+                      />
+                      <Box textAlign="end" width="40vh">
+                        <Typography variant="body2">
+                          {c.lastMessage.substring(0, 10)}
+                        </Typography>
+                        <Typography variant="body2">
+                          {c.lastMessage.substring(11, 19)}
+                        </Typography>
+                      </Box>
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
                 </Box>
-              </Conversation>
-            </Grid>
-          ))}
+              ))}
+          </List>
         </Grid>
       </Box>
     </div>

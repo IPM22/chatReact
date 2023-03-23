@@ -2,82 +2,91 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import Avatar from "@mui/material/Avatar";
-import { IconButton, Typography } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import Header from "../components/header";
+import data from "../data/data.json";
+import Message from "../components/message";
+import { Typography } from "@mui/material";
 
-const MineMessage = styled(Paper)(({ theme }) => ({
-  //backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+const InputMessage = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   display: "flex",
-  alignItems: "center",
-  color: theme.palette.text.primary,
-  color: "white",
-  borderEndEndRadius: 0,
-  borderTopRightRadius: 15,
-  borderTopLeftRadius: 15,
-  borderEndStartRadius: 15,
+  color: theme.palette.text.secondary,
   padding: 20,
-  backgroundColor: theme.palette.success.light,
-  width: "50vh",
-  textAlign: "left",
 }));
 
-function Chat() {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const Background = styled(Box)(({ theme }) => ({
+  flexGrow: 1,
+  backgroundImage:
+    theme.palette.mode === "dark"
+      ? `url(${"/fondoDark.jpg"})`
+      : `url(${"/fondo.jpg"})`,
+  backgroundSize: "cover",
+}));
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+function Chat({ chatSelected, setChatIdSelected }) {
   return (
-    <div>
-      <Header />
-
-      <Box sx={{ flexGrow: 1, padding: 1 }}>
-        <Grid
-          container
-          spacing={2}
-          sx={{ overflowY: "scroll", height: "1250px" }}
-        >
-          <Grid item md={12} xs={12} p={3}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "end",
-              }}
+    <Box
+      sx={{
+        display: {
+          xs: chatSelected ? "block" : "none",
+          sm: chatSelected ? "block" : "none",
+          md: "block",
+        },
+      }}
+    >
+      {chatSelected ? (
+        <Box sx={{ position: "relative" }}>
+          <Box>
+            <Header
+              name={chatSelected.destinaraty}
+              backOption={true}
+              setChatIdSelected={setChatIdSelected}
+            />
+          </Box>
+          <Background>
+            <Grid
+              container
+              spacing={2}
+              sx={{ overflowY: "scroll", padding: 2, maxHeight: "95vh" }}
             >
-              <MineMessage>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-              </MineMessage>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-    </div>
+              <Grid item md={12} xs={12} p={3}>
+                {data.map((x) => (
+                  <Message key={x.id} data={x} />
+                ))}
+              </Grid>
+            </Grid>
+          </Background>
+          <Box sx={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
+            <InputMessage>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Type a message"
+                multiline
+                maxRows={4}
+                fullWidth
+              />
+            </InputMessage>
+          </Box>
+        </Box>
+      ) : (
+        <Background>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+              flexGrow: 1,
+            }}
+          >
+            <Typography> Seleccione un chat</Typography>
+          </Box>
+        </Background>
+      )}
+    </Box>
   );
 }
 
